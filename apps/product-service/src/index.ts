@@ -3,7 +3,7 @@ import cors from "cors";
 const app=express() 
 
 app.listen(8000,()=>{
-    console.log("Product service is runnig");
+    console.log("Product service is runnig 8000");
 })
 
 app.use(cors({

@@ -1,8 +1,21 @@
-import { Request, Response, Router } from "express";
+// routes/category.route.ts
+
+import { Router } from "express";
+import {
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  getCategories,
+  getCategory,
+} from "../controllers/category.controller"; // Import controller functions
 
 const router: Router = Router();
 
-router.get("/test", (req: Request, res: Response) => {
-  res.json({ message: "works fine" });
-});
+// Define routes and link them to the controller functions
+router.get("/", getCategories); // GET all categories
+router.get("/:id", getCategory); // GET a single category by ID
+router.post("/", createCategory); // POST to create a new category
+router.put("/:id", updateCategory); // PUT to update an existing category
+router.delete("/:id", deleteCategory); // DELETE a category by ID
+
 export default router;

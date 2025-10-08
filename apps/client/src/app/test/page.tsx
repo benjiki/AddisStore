@@ -17,7 +17,7 @@ const TestPage = async () => {
     },
   });
 
-  const resPayment = await fetch("http://localhost:8000/test", {
+  const resPayment = await fetch("http://localhost:8002/test", {
     headers: {
       Authorization: `Bearer ${token}`,
     },

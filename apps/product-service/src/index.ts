@@ -1,7 +1,9 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { clerkMiddleware, getAuth } from "@clerk/express";
+import { clerkMiddleware } from "@clerk/express";
 import { shouldBeUser } from "../middleware/authMiddleware.js";
+import productRouter from "./routes/product.route.js";
+import categoryRouter from "./routes/category.route.js";
 const app = express();
 
 app.use(
@@ -15,7 +17,8 @@ app.use(clerkMiddleware());
 app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", uptime: process.uptime(), timestamp: Date.now() });
 });
-
+app.use("/products", productRouter);
+app.use("/category", categoryRouter);
 app.get("/test", shouldBeUser, (req: Request, res: Response) => {
   res.json({ message: "Product Serive Auth:", userId: req.userId });
 });

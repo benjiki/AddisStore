@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import Clerk from "@clerk/fastify";
+import { shouldBeUser } from "../middleware/authMiddleware.js";
 const fastify = Fastify();
 
 fastify.register(Clerk.clerkPlugin);
@@ -12,23 +13,11 @@ fastify.get("/health", (request, reply) => {
   });
 });
 
-fastify.get("/test", async (request, reply) => {
+fastify.get("/test", { preHandler: shouldBeUser }, async (request, reply) => {
   try {
-    // Use `getAuth()` to access `isAuthenticated` and the user's ID
-    const { isAuthenticated, userId } = Clerk.getAuth(request);
-
-    // If user isn't authenticated, return a 401 error
-    if (!isAuthenticated) {
-      return reply.code(401).send({ error: "User not authenticated" });
-    }
-
-    // Use `clerkClient` to access Clerk's JS Backend SDK methods
-    // and get the user's User object
-    const user = await Clerk.clerkClient.users.getUser(userId);
-
     return reply.send({
       message: "Order retrieved successfully",
-      user,
+      userId: request.userId,
     });
   } catch (error) {
     fastify.log.error(error);

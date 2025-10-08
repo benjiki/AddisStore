@@ -12,6 +12,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
 app.use(clerkMiddleware());
 
 app.get("/health", (req: Request, res: Response) => {
@@ -22,6 +23,14 @@ app.use("/category", categoryRouter);
 app.get("/test", shouldBeUser, (req: Request, res: Response) => {
   res.json({ message: "Product Serive Auth:", userId: req.userId });
 });
+
+app.use((err: any, req: Request, res: Response) => {
+  console.log(err);
+  return res
+    .status(err.status || 500)
+    .json({ message: err.message || "Internal Server Error!!!" });
+});
+
 app.listen(8000, () => {
   console.log("Product service is running on port 8000");
 });

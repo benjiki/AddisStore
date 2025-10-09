@@ -7,13 +7,14 @@ import {
   deleteCategory,
   getCategories,
 } from "../controllers/category.controller"; // Import controller functions
+import { shouldBeAdmin } from "../../middleware/authMiddleware";
 
 const router: Router = Router();
 
 // Define routes and link them to the controller functions
 router.get("/", getCategories); // GET all categories
-router.post("/", createCategory); // POST to create a new category
-router.put("/:id", updateCategory); // PUT to update an existing category
-router.delete("/:id", deleteCategory); // DELETE a category by ID
+router.post("/", shouldBeAdmin, createCategory); // POST to create a new category
+router.put("/:id", shouldBeAdmin, updateCategory); // PUT to update an existing category
+router.delete("/:id", shouldBeAdmin, deleteCategory); // DELETE a category by ID
 
 export default router;

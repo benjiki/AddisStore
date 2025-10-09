@@ -13,6 +13,7 @@ export const connectOrderDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     isConnected = true;
+    console.log("Order Database Connected !");
   } catch (error) {
     console.log(error);
     throw error;

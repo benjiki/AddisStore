@@ -4,11 +4,38 @@ import { Request, Response } from "express";
 export const createCategory = async (req: Request, res: Response) => {
   const data: Prisma.CategoryCreateInput = req.body;
   const category = await prisma.category.create({ data });
-  res.status(201).json({ message: "Category Created Successfully!", category });
+  return res
+    .status(201)
+    .json({ message: "Category Created Successfully!", category });
 };
 
-export const updateCategory = async (req: Request, res: Response) => {};
+export const updateCategory = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data: Prisma.CategoryUpdateInput = req.body;
+  const updatedCategory = await prisma.category.update({
+    where: {
+      id: Number(id),
+    },
+    data,
+  });
+  return res.json({ message: "updated category", updatedCategory });
+};
 
-export const deleteCategory = async (req: Request, res: Response) => {};
+export const deleteCategory = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const deletedCategory = await prisma.category.delete({
+    where: {
+      id: Number(id),
+    },
+  });
 
-export const getCategories = async (req: Request, res: Response) => {};
+  return res
+    .status(200)
+    .json({ message: "category deleted!", deletedCategory });
+};
+
+export const getCategories = async (req: Request, res: Response) => {
+  const categories = await prisma.category.findMany();
+
+  return res.status(200).json({ message: "all categories", categories });
+};

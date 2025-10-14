@@ -8,7 +8,7 @@
     "@types/node": "^24.7.0"
   },
   "scripts": {
-    "check-types": "tsx --noEmit"
+    "check-types": "tsc --noEmit"
   },
   "exports": {
     ".": {
@@ -17,6 +17,8 @@
     }
   },
   "dependencies": {
-    "mongoose": "^8.19.1"
+    "@repo/product-db": "workspace:*",
+    "mongoose": "^8.19.1",
+    "zod": "4.0.14"
   }
 }

@@ -18,12 +18,13 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.61.1",
     "react-toastify": "^11.0.5",
-    "zod": "^3.22.4",
+    "zod": "^4.0.14",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
